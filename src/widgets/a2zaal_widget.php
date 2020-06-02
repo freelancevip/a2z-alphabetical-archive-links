@@ -81,6 +81,7 @@ class a2zaal_widget extends \WP_Widget {
 
 		$post_type_titles_struct = get_option( $instance['selected_post_type'] . A2ZAAL_POSTS_SUFFIX, array() );
 		$display_links = array();
+		$post_type_titles_struct = array_filter($post_type_titles_struct);
 
 		ksort( $post_type_titles_struct, SORT_NATURAL );
 

@@ -33,9 +33,9 @@ function maybe_modify_rewrite_rules_array( $rewrite_rules ) {
 	foreach ( $a2zaal_active_post_types AS $active_post_type ) {
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/?$']                              = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=all';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/page/?([0-9]{1,})/?$']            = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=all&paged=$matches[2]';
-		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/([a-zA-Z])/?$']                   = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]';
+		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/([^/]+)/?$']                   = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/num/?$']                          = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=0';
-		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/([a-zA-Z])/page/?([0-9]{1,})/?$'] = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]&paged=$matches[2]';
+		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/(\p{L})/page/?([0-9]{1,})/?$'] = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]&paged=$matches[2]';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/num/page/?([0-9]{1,})/?$']        = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=0&paged=$matches[1]';
 	}
 
@@ -108,6 +108,7 @@ function filter_a2zaal_where_clause( $posts_where ) {
 	}
 
 	$a2zaal_query_var = \get_query_var( A2ZAAL_REWRITE_TAG );
+	$a2zaal_query_var=urldecode($a2zaal_query_var);
 
 	$specific_post_ids = implode( ',', array_keys( $post_type_a2zaal_struct[ $a2zaal_query_var ] ) );
 
@@ -134,6 +135,7 @@ function filter_a2zaal_orderby_clause( $posts_orderby ) {
 	}
 
 	$a2zaal_query_var = \get_query_var( A2ZAAL_REWRITE_TAG );
+	$a2zaal_query_var=urldecode($a2zaal_query_var);
 
 	natsort( $post_type_a2zaal_struct[ $a2zaal_query_var ] );
 
