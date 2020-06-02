@@ -33,8 +33,8 @@ function maybe_modify_rewrite_rules_array( $rewrite_rules ) {
 	foreach ( $a2zaal_active_post_types AS $active_post_type ) {
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/?$']                              = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=all';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/page/?([0-9]{1,})/?$']            = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=all&paged=$matches[2]';
-		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/([^/]+)/?$']                   = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/num/?$']                          = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=0';
+		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/([^/]+)/?$']                   = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/(\p{L})/page/?([0-9]{1,})/?$'] = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=$matches[1]&paged=$matches[2]';
 		$new_rules[$active_post_type . '/' . A2ZAAL_REWRITE_TAG . '/num/page/?([0-9]{1,})/?$']        = 'index.php?post_type=' . $active_post_type . '&' . A2ZAAL_REWRITE_TAG . '=0&paged=$matches[1]';
 	}
